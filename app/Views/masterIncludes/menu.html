@@ -1,0 +1,34 @@
+<nav role="navigation" class="f_left f_xs_none d_xs_none t_xs_align_l">	
+<ul class="horizontal_list main_menu clearfix">
+{% for menu, submenus in menus %}      
+	{% set menuProp = menu|split('~') %}
+	<li class='{{ menuProp[1] == actualPage ? "current" : "" }} relative f_xs_none m_xs_bottom_5'><a href='{{ path.sitio }}{{ menuProp[1] }}' class='tr_delay_hover color_light tt_uppercase'><b title="{{ menuProp[2] }}" >{{ menuProp[0] }}</b></a>
+	<!--sub menu-->
+	{% if menuProp[3] %}
+		<div class="sub_menu_wrap top_arrow d_xs_none tr_all_hover clearfix r_corners w_xs_auto">
+			<div class="f_left m_left_10 m_xs_left_0 f_xs_none">
+			<b class="color_dark m_left_20 m_bottom_5 m_top_5 d_inline_b">Tienda virtual Galileo Instruments SAS</b>
+				<ul class="sub_menu">
+				{% for categoria in categorias %}
+					<li><a class="color_dark tr_delay_hover" href="{{ path.sitio }}tienda/{{ categoria.url }}">{{ categoria.nombre }}</a></li>
+				{% endfor %}
+				</ul>
+			</div>
+			<img src="{{ path.absoluta }}images/woman_image_1.jpg" class="d_sm_none f_right m_bottom_10" alt="">
+		</div>
+	{% else %}
+		{% if submenus %}
+		<!--sub menu-->
+				<div class="sub_menu_wrap top_arrow d_xs_none type_2 tr_all_hover clearfix r_corners">
+					<ul class="sub_menu">
+						{% for submenu in submenus %}
+							<li><a class="{% if submenu.icono %}fa fa-{{ submenu.icono }}{% endif %} color_dark tr_delay_hover" href="{{ path.sitio }}{{ submenu.url }}">{{ submenu.nombre }}</a></li>
+						{% endfor %}
+					</ul>
+				</div>
+		{% endif %}
+	{% endif %}
+	</li>
+{% endfor %}
+</ul>
+</nav>

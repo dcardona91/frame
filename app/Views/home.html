@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="es-ES">
+<head>
+<meta charset="utf-8">
+<title>{{ title|default('My Sitio') }}</title>
+</head>
+<body>
+<h1>Hola mundo.. de nuevo</h1>
+<table>
+<thead>
+	<tr>
+		<td>Id</td>
+		<td>Nombre</td>
+		<td>Correo</td>
+	</tr>
+</thead>
+{% for test in  tests %}
+<tr>
+	<td>{{ test.id }}</td>
+	<td>{{ test.nombre }}</td>
+	<td>{{ test.correo }}</td>
+</tr>
+{% endfor %}
+</table>
+</body>	
+</html>
+
