@@ -1,209 +1,38 @@
-@charset "utf-8";
-/* CSS Document */
-
-/* ---------- FONTAWESOME ---------- */
-/* ---------- http://fortawesome.github.com/Font-Awesome/ ---------- */
-/* ---------- http://weloveiconfonts.com/ ---------- */
-
-@import url(http://weloveiconfonts.com/api/?family=fontawesome);
-
-/* ---------- ERIC MEYER'S RESET CSS ---------- */
-/* ---------- http://meyerweb.com/eric/tools/css/reset/ ---------- */
-
-@import url(http://meyerweb.com/eric/tools/css/reset/reset.css);
-
-/* ---------- FONTAWESOME ---------- */
-
-[class*="fontawesome-"]:before {
-  font-family: 'FontAwesome', sans-serif;
+html, body {
+    height: 100%;
+    padding: 0;
+    margin: 0;
 }
 
-/* ---------- GENERAL ---------- */
-
-body {
-	background-image: url(../img/cubes.png);
-	background-size: 50px;
-	background-color: #242424;
-	color: #000;
-	font-family: "Varela Round", Arial, Helvetica, sans-serif;
-	font-size: 16px;
-	line-height: 1.5em;
+div, textarea {
+    box-sizing: border-box;
 }
 
-input {
-	border: none;
-	font-family: inherit;
-	font-size: inherit;
-	font-weight: inherit;
-	line-height: inherit;
-	-webkit-appearance: none;
+.container {
+    height: 100%;
+    width: 400px;
+    border-right: 1px solid #242424;
 }
 
-/* ---------- LOGIN ---------- */
-
-#login {
-	margin: 50px auto;
-	width: 400px;
+.chat, .form {
+    padding: 0 10px;
 }
 
-#login h2 {
-	background:url(../img/back.jpg);
-	-webkit-border-radius: 20px 20px 0 0;
-	-moz-border-radius: 20px 20px 0 0;
-	border-radius: 20px 20px 0 0;
-	color: #fff;
-	font-size: 28px;
-	padding: 20px 26px;
+.chat {
+    height: calc(100% - 150px);
 }
 
-#login h2 span[class*="fontawesome-"] {
-	margin-right: 14px;
+.form {
+    height: 150px;
+    border-top: 1px solid #242424;
 }
 
-#login fieldset {
-	background-color: #fff;
-	-webkit-border-radius: 0 0 20px 20px;
-	-moz-border-radius: 0 0 20px 20px;
-	border-radius: 0 0 20px 20px;
-	padding: 20px 26px;
-}
-
-#login fieldset p {
-	color: #777;
-	margin-bottom: 14px;
-}
-
-.merror{
-	color: #D14B5F !important;
-	display: none;
-}
-
-.mcontra{
-	cursor: pointer;
-	text-decoration: underline;
-	display: none;
-}
-
-#login fieldset p:last-child {
-	margin-bottom: 0;
-}
-
-#login fieldset input {
-	-webkit-border-radius: 3px;
-	-moz-border-radius: 3px;
-	border-radius: 3px;
-}
-
-#login fieldset input[type="text"], #login fieldset input[type="password"], #login fieldset input[type="email"]{
-	background-color: #eee;
-	color: #777;
-	padding: 4px 10px;
-	width: 328px;
-}
-
-.error{
-	border: 1px solid #d00;
-}
-
-#login fieldset input[type="submit"] {
-	background-color: #33cc77;
-	color: #fff;
-	display: block;
-	margin: 0 auto;
-	padding: 4px 0;
-	width: 100px;
-	cursor: pointer;
-}
-
-#login fieldset input[type="submit"]:hover {
-	background-color: #28ad63;
-}
-
-.logo img{    
-	width: 90px;
-    margin-left: -130px;
-    margin-top: -54px;
-    position: absolute;
-}
-
- .cerrarTelon .glyphicon,.cerrarTelon .loader{
-        margin-top: 5%;
-        cursor: pointer;
-    }
-#telon
-{
-    position: fixed;
-     z-index: 9999;
-     width: 100%;
-     height: 100%;
-     top:0;
-     left:0;
-     background-color: rgba(0,0,0,0.5);
-     text-align: center;
-}
-
-#errorConfirma
-{
-     z-index: 99999;
-      font-size: 128px;
-      color: tomato;
-      margin: 60px auto;  
-}
-
-#successConfirma
-     {z-index: 99999;
-           font-size: 120px;
-           color: white;
-           margin: 60px auto;  
-     }
-
- .loader {
-  margin: 60px auto;  
-  font-size: 10px;
-  position: relative;
-  text-indent: -9999em;
-  border-top: 1.1em solid rgba(255, 255, 255, 0.2);
-  border-right: 1.1em solid rgba(255, 255, 255, 0.2);
-  border-bottom: 1.1em solid rgba(255, 255, 255, 0.2);
-  border-left: 1.1em solid #ffffff;
-  -webkit-transform: translateZ(0);
-  -ms-transform: translateZ(0);
-  transform: translateZ(0);
-  -webkit-animation: load8 1.1s infinite linear;
-  animation: load8 1.1s infinite linear;
-}
-.loader,
-.loader:after {
-  border-radius: 50%;
-  width: 10em;
-  height: 10em;
-}
-@-webkit-keyframes load8 {
-  0% {
-    -webkit-transform: rotate(0deg);
-    transform: rotate(0deg);
-  }
-  100% {
-    -webkit-transform: rotate(360deg);
-    transform: rotate(360deg);
-  }
-}
-@keyframes load8 {
-  0% {
-    -webkit-transform: rotate(0deg);
-    transform: rotate(0deg);
-  }
-  100% {
-    -webkit-transform: rotate(360deg);
-    transform: rotate(360deg);
-  }
-}
-
-.hide{
-	display: none;
-}
-
-#ajmensaje{
-	color:#fff;
-	font-size: 50px;
+#messagebox {
+    resize: none;
+    width: 100%;
+    height: 100%;
+    display: block;
+    padding: 10px 0;
+    border: none;
+    outline: none;
 }

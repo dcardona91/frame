@@ -6,16 +6,16 @@ use \ThisApp\Models\Test;
 use \ThisApp\Models\Menu;
 
 /**
-* 
+*
 */
-class Home {	
+class Home {
 	public function index($name = null)
-	{		
+	{
 		$test = new Test();
 		$menu = new Menu();
 
 		$params = array(
-			"title"=>"Bienvenidos - CTA",
+			"title"=>"Bienvenido",
 			"actualPage"=>"Home",
 			"tests"=>$test->lists(),
 			"menu"=>$menu->get(),

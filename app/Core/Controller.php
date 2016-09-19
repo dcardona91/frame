@@ -7,23 +7,6 @@ use \ThisApp\Aplication\Security\Token;
 
 class Controller
 {
-	public function checkPost($values = array())
-	{
-		if(!Posts::check($values)){
-			//$this->regresar();
-			Redirect::to("busqueda");
-		}
-	}
-
-	public function regresar()
-	{
-		Redirect::to("busqueda");
-	}
-
-	public function rol($rol)
-	{
-		Redirect::checkRol($rol ,"busqueda");
-	}
 
 	public function model($model){
 		//require_once '../app/models/'.$model.'.php';
@@ -32,7 +15,7 @@ class Controller
 	}
 
 	public function sendToView($view, $data = [])
-	{	
+	{
 		//GENERALES PARA LA MASTER
 		$flash = Session::getFlash();
 		$path  = $this->model('Path')->get();
@@ -53,6 +36,6 @@ class Controller
 		echo View::getInstance()->render(
 			$view,
 			array_merge($data, $masterParams)
-			);	
+			);
 	}
 }

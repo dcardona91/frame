@@ -3,10 +3,10 @@ namespace ThisApp\Aplication\System;
 //php data objet para deifinir cualquier base e datos c
 class DB {
 	private static $_instance = null;
-	private $_pdo, 
-			$_query, 
-			$_error =  false, 
-			$_results, 
+	private $_pdo,
+			$_query,
+			$_error =  false,
+			$_results,
 			$_count = 0;
 
 	public function __construct(){
@@ -22,16 +22,16 @@ class DB {
 */
 	public static function getInstance(){
 		if (!isset(self::$_instance)) {
-			self::$_instance = new DB();	
+			self::$_instance = new DB();
 			self::$_instance->query("SET NAMES utf8;");
 		}
 		return self::$_instance;
 	}
 
 	private function clean()
-	{ 
+	{
 		$this->_error =  false;
-		$this->_results = NULL; 
+		$this->_results = NULL;
 		$this->_count = 0;
 	}
 
@@ -47,7 +47,7 @@ class DB {
 				}
 			}
 
-			if ($this->_query->execute()) {
+			if ($this->_query->execute() === true) {
 				$this->_results = $this->_query->fetchAll(\PDO::FETCH_OBJ);
 				$this->_count = $this->_query->rowCount();
 			}
@@ -58,7 +58,7 @@ class DB {
 		return $this;
 	}
 
-	
+
 	public function insert($table, array $cols)
 	{
 			end($cols);
@@ -66,7 +66,7 @@ class DB {
 			$positions = "";
 				foreach ($cols as $key => $col) {
 					$positions = $key==$last? $positions." ? " : $positions." ?, ";
-				}	
+				}
 			$columns = implode(",",array_keys($cols));
 				$sql = "INSERT INTO {$table} ({$columns}) VALUES(".$positions.")";
 				if (!$this->query($sql, array_values($cols), $table)->error()) {
@@ -89,7 +89,7 @@ class DB {
 						$valuesArray[]=$col;
 					}
 				$queryValues = $key==$lastRow? $queryValues." (".$positions.")" : $queryValues." (".$positions."),";
-			}	
+			}
 
 			$columns = implode(", ",array_keys($rows[0]));
 				$sql = "INSERT INTO {$table} ({$columns}) VALUES ".$queryValues;
@@ -106,11 +106,11 @@ class DB {
 			$positions = "";
 				foreach ($fields as $key => $col) {
 					$positions = $key==$last? $positions." ".$key." = ? " :$positions." ".$key." = ?, ";
-				}	
+				}
 			$columns = implode(",",array_keys($fields));
 				$whereId = $where['nombre'];
 				$valWhereId = $where['valor'];
-				$sql = "UPDATE {$table} SET {$positions} WHERE {$whereId} = '{$valWhereId}'";				
+				$sql = "UPDATE {$table} SET {$positions} WHERE {$whereId} = '{$valWhereId}'";
 
 				if (!$this->query($sql, array_values($fields), "###")->error()) {
 					return $this;
@@ -122,18 +122,18 @@ class DB {
 	{
 		return $this->action("SELECT *",$table, $where);
 	}
-	
+
 	public function action($action, $table, $where = array())
 	{
 		if (count($where) === 3) {
 			$operators = array('=','>','<','>=','<=');
-			
+
 			$field = $where[0];
 			$operator = $where[1];
 			$value = $where[2];
 
 			if (in_array($operator, $operators)) {
-				$sql = "{$action} FROM {$table} WHERE {$field} {$operator} ?";										
+				$sql = "{$action} FROM {$table} WHERE {$field} {$operator} ?";
 				if (!$this->query($sql, array($value),$table)->error()) {
 					return $this;
 				}
@@ -141,19 +141,19 @@ class DB {
 		}
 	}
 /*
-	Metodos 
+	Metodos
 */
-	protected function create($obj){	
+	protected function create($obj){
 		$t = $this->getTableName($obj);
 		$c = $this->getColumns($obj);
 		return $this->_db->insert($t,$c);
 	}
-	
+
 	protected function delete($arg)
 	{
 		$id = "";
-		if (is_object($arg)) {		
-			$cols = $this->getColumns($arg);	
+		if (is_object($arg)) {
+			$cols = $this->getColumns($arg);
 			if(in_array("id", $cols))
 			{
 				$id = $cols["id"];
@@ -204,4 +204,3 @@ class DB {
 	}
 
 }
-	

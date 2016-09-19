@@ -1,49 +1,44 @@
-$('.mcontra').click(function(event) {
-  window.location.href ="recuperar";
+var chat = document.getElementById("chatwindow");
+var msg =  document.getElementById("messagebox");
+
+var socket = new WebSocket("ws://127.0.0.1:2000");
+
+var open = false;
+
+function addMessage(msg){
+  chat.innerHTML += "<p>" + msg + "</p>";
+}
+
+msg.addEventListener('keypress', function(evt){
+  if (evt.charCode != 13)
+    return;
+
+  if (msg.value == "" || !open)
+    return;
+
+    evt.preventDefault();
+    socket.send(JSON.stringify({
+      msg: msg.value
+    }));
+
+    addMessage(msg.value);
+    msg.value = "";
 });
 
 
-function errLogIn(){
-	var usr = $('#usuario');
-	var contra = $('#contra');
-		usr.addClass('error');
-		contra.addClass('error');
-		$('.merror').css('display','block');
-		$('.mcontra').css('display','block');
-}
+socket.onopen = function(){
+  open = true;
 
-$(".cerrarTelon").click(function(){
-   $("#telon").addClass("hide"); 
-   $("#successConfirma, #errorConfirma, #sending").removeClass("animated bounce");
-  $("#successConfirma, #errorConfirma, #sending").addClass("hide");
-});
+  addMessage("Connected");
+};
 
-function cs(){
-    $("#successConfirma, #errorConfirma, #sending").removeClass("animated bounce");
-    $("#successConfirma, #errorConfirma, #sending ,#ajmensaje").addClass("hide");
-}
+socket.onmessage = function(evt){
+  var data = JSON.parse(evt.data);
+  addMessage(data.msg);
+};
 
+socket.onclose = function(){
+  open = false;
 
-function mt(which, dato){
-      $("#telon").removeClass("hide");
-      switch (which) {
-          case "o":  
-          cs();
-          $("#successConfirma").removeClass("hide").addClass("animated bounce");
-          $("#ajmensaje").removeClass("hide").addClass("animated zoomIn").html("<p class='msjConfirma'>Le hemos enviado a su correo la contraseña nueva</p>");
-           $(".hideAfter").addClass("hide");
-           $(".msjAfter").html("Su nueva contraseña fue enviada a <strong>"+dato+"@xxxxxxxxx</strong><br/>");
-           break;
-          case "e":  
-          cs();
-          $("#errorConfirma").removeClass("hide").addClass("animated bounce");
-          $("#ajmensaje").removeClass("hide").addClass("animated zoomIn").html("<p class='msjConfirma'>La identificación es incorrecta</p>");
-          $("#token").val(dato);
-           break;
-          case "s": 
-          cs(); 
-          $("#sending").removeClass("hide");
-          $("#ajmensaje").removeClass("hide").addClass("animated zoomIn").html("<p class='msjConfirma'>Enviando correo</p>");
-           break;
-                  }  
+  addMessage("Disconnected");
 };
